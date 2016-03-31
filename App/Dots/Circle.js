@@ -18,9 +18,6 @@ Circle.prototype = {
     
 display:function(){
     this.ctx.fillStyle = this.color;
-    
-    
-    
     this.ctx.beginPath();
     this.ctx.arc(this.x,this.y,this.r,0,Math.PI*2,true);
     this.ctx.closePath();

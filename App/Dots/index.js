@@ -1,7 +1,6 @@
 var w = window.innerWidth;
 var h = window.innerHeight;
 
-
 var canvas = document.getElementById('canvas');
 canvas.width = w;// * scale;
 canvas.height = h;// * scale;
@@ -12,13 +11,9 @@ var displayedCircles = [];
 var bar;
 var counter = 0;
 
-
 var ctx = canvas.getContext("2d",{ antialias:true, antialiasSamples:4, alpha: false});
 
-
 var score = 0;
-
-
 
 function onTouchStart(e){}
 
@@ -29,7 +24,6 @@ function onTouchMove(e){
 function onTouchEnd(e){}
 
 function setup(){
-    
     
     bar = new Bar(ctx);
     
@@ -44,13 +38,11 @@ function setup(){
         allCircles.push(myCircle);
     }
     
-    
     document.addEventListener('touchstart', onTouchStart);
     document.addEventListener('touchend', onTouchEnd);
     document.addEventListener('touchmove', onTouchMove);
     
     draw();
-    
     
 }
 
@@ -60,7 +52,6 @@ function drawScore() {
     ctx.fillStyle = "#FF0000";
     ctx.fillText("Score: "+score, 10, 25);
 }
-
 
 //collision detection
 function collisionDetection(myCircle) {
@@ -74,8 +65,6 @@ function collisionDetection(myCircle) {
         
     }
     
-    
-    
     //  wrong match subtracting score
     if(myCircle.y + myCircle.r >= bar.y && (myCircle.x + myCircle.r >= bar.x && myCircle.x - myCircle.r <= bar.x + bar.width) && myCircle.color != bar.color && !myCircle.isTouched) {
         myCircle.isTouched = true;
@@ -84,11 +73,11 @@ function collisionDetection(myCircle) {
         bar.colorIndex = Math.floor(Math.random()*4);
         bar.color = reds[bar.colorIndex];
         //size varies points
-        if(score>=10){
+    
+    if(score>=10){
             myCircle.vy = Math.random()*7;
         }
     }
-    
     
 }
 //end of collision detection
@@ -97,8 +86,6 @@ function draw(){
     
     ctx.fillStyle = "white";
     ctx.fillRect(0,0,w,h);
-    
-    
     
     bar.display();
     
@@ -122,12 +109,9 @@ function draw(){
         }
     }
     
-    
     requestAnimationFrame(draw);
     drawScore();
     
 }
-
-
 
 setup();
