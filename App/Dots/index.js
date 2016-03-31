@@ -19,6 +19,7 @@ var ctx = canvas.getContext("2d",{ antialias:true, antialiasSamples:4, alpha: fa
 var score = 0;
 
 
+
 function onTouchStart(e){}
 
 function onTouchMove(e){
@@ -29,6 +30,7 @@ function onTouchEnd(e){}
 
 function setup(){
     
+    
     bar = new Bar(ctx);
     
     
@@ -37,20 +39,11 @@ function setup(){
         myCircle.ID = i;
         myCircle.y = -175;
         myCircle.x = Math.random()*w;
-        myCircle.vy = Math.random()*2;
+        myCircle.vy = Math.random()*4;
         myCircle.r = Math.random()*20+1;
         allCircles.push(myCircle);
     }
     
-    //notes from class
-    //sound code with JSON
-    //manual audio setup
-    //var mySound = document.createElement('audio');
-    // mySound.src = "data/soundfile.mp3";
-    //audio.preload = true;
-    //audio.loop = false;
-    //audio.load();
-    //document.body.appendChild(audio);
     
     document.addEventListener('touchstart', onTouchStart);
     document.addEventListener('touchend', onTouchEnd);
@@ -74,36 +67,38 @@ function collisionDetection(myCircle) {
     if(myCircle.y + myCircle.r >= bar.y && (myCircle.x + myCircle.r >= bar.x && myCircle.x - myCircle.r <= bar.x + bar.width) && myCircle.color == bar.color && !myCircle.isTouched) {
         myCircle.isTouched = true;
         score++;
-        var reds = ["rgba(255, 0, 0, 1)", "rgba(255,0,0,0.8)", "rgba(255,0,0,0.5)", "rgba(255,0,0,0.3)"];
+        var reds = ["rgba(255, 0, 0, 1)", "rgba(255,0,0,0.7)", "rgba(255,0,0,0.5)", "rgba(255,0,0,0.3)"];
         bar.colorIndex = Math.floor(Math.random()*4);
         bar.color = reds[bar.colorIndex];
         //size varies points
         
     }
-
-    //add to if statement for same color detection myCircle.color == bar.color
-
     
-//  wrong match subtracting score
+    
+    
+    //  wrong match subtracting score
     if(myCircle.y + myCircle.r >= bar.y && (myCircle.x + myCircle.r >= bar.x && myCircle.x - myCircle.r <= bar.x + bar.width) && myCircle.color != bar.color && !myCircle.isTouched) {
-    myCircle.isTouched = true;
-    score-=1;
-        var reds = ["rgba(255, 0, 0, 1)", "rgba(255,0,0,0.8)", "rgba(255,0,0,0.5)", "rgba(255,0,0,0.3)"];
+        myCircle.isTouched = true;
+        score-=1;
+        var reds = ["rgba(255, 0, 0, 1)", "rgba(255,0,0,0.7)", "rgba(255,0,0,0.5)", "rgba(255,0,0,0.3)"];
         bar.colorIndex = Math.floor(Math.random()*4);
         bar.color = reds[bar.colorIndex];
-    //size varies points
+        //size varies points
+        if(score>=10){
+            myCircle.vy = Math.random()*7;
+        }
+    }
     
-}
-
-
-
-
+    
 }
 //end of collision detection
 
 function draw(){
+    
     ctx.fillStyle = "white";
     ctx.fillRect(0,0,w,h);
+    
+    
     
     bar.display();
     
